@@ -6,6 +6,6 @@ open class FoodData(_name: String, _price: Int, _explanation: String) { // 버�
     var explanation : String = _explanation //메뉴 설명 저장할 변수
 
     open fun displayInfo(){
-        println("\"${name}\t|\t${price}원\t|\t${explanation}\"")
+        println("${name}\t|\t${price}원\t|\t${explanation}")
     }
 }

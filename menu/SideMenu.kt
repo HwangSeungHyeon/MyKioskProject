@@ -11,7 +11,7 @@ class SideMenu : DetailMenu(){
     }
 
     override fun displayInfo() {
-        println("[ 사이드 메뉴 ]")
+        println("\n[ 사이드 메뉴 ]")
         for((idx, data) in myList.withIndex()){
             println("${idx+1}. ${data.name}\t|\t${data.price}원\t|\t${data.explanation}")
         }

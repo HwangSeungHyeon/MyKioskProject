@@ -11,7 +11,7 @@ class DrinksMenu: DetailMenu(){
     }
 
     override fun displayInfo() {
-        println("[ 음료수 메뉴 ]")
+        println("\n[ 음료수 메뉴 ]")
         for((idx, data) in myList.withIndex()){
             println("${idx+1}. ${data.name}\t|\t${data.price}원\t|\t${data.explanation}")
         }

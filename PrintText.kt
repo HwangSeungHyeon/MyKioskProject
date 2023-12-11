@@ -1,6 +1,6 @@
 package com.example.mykioskproject
 
-open class DisplayMenu { //SelectMenu, DetailMenu 클래스의 부모 클래스
+open class PrintText { //SelectMenu의 부모 클래스
     fun displayInfo(flag:Int){ //소개문 또는 메인메뉴 출력하는 함수
         when(flag){
             0 -> {
@@ -20,6 +20,16 @@ open class DisplayMenu { //SelectMenu, DetailMenu 클래스의 부모 클래스
                 println("\n[주문 메뉴]")
                 println("6. 주문")
                 println("7. 취소")
+            }
+            3-> {
+                println("\n잘못된 번호를 입력했어요. 다시 입력해주세요.\n")
+            }
+            4->{
+                println("위 메뉴를 장바구니에 추가하시겠습니까?")
+                println("1. 확인\t2. 취소")
+            }
+            -1 -> {
+                println("\n프로그램을 종료합니다.")
             }
         }
 
