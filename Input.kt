@@ -1,7 +1,7 @@
 package com.example.mykioskproject
 
 class Input {
-    fun inputData(): String?{
+    fun input(): String?{
         //readln은 readLine을 대체한 메소드로, null을 입력받지 않는다.
         val commend = readln() //String 타입으로 입력받는다.
 
