@@ -1,7 +1,7 @@
 package com.example.mykioskproject
 
 open class PrintText { //SelectMenu의 부모 클래스
-    fun displayInfo(flag:Int){ //소개문 또는 메인메뉴 출력하는 함수
+    fun displayInfo(flag:Int){ //소개문 또는 메인메뉴 출력하는 메소드
         when(flag){
             0 -> {
                 println("\"신선하고 좋은 재료로 건강하고 푸짐하게!\"\n맘스터치에 오신걸 환영합니다.")
