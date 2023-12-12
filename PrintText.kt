@@ -22,7 +22,7 @@ open class PrintText { //SelectMenu의 부모 클래스
                 println("7. 취소")
             }
             3-> {
-                println("\n잘못된 번호를 입력했어요. 다시 입력해주세요.\n")
+                println("\n잘못된 번호를 입력했어요. 다시 입력해주세요.")
             }
             4->{
                 println("위 메뉴를 장바구니에 추가하시겠습니까?")

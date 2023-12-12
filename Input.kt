@@ -24,7 +24,7 @@ class Input {
         }
     }
 
-    fun getIntInput():Int{
+    fun getInput():Int{
         while(true){
             commend = input() ?: continue //입력한 값이 null이 아니면 입력한 값 대입, null이면 continue
             break
