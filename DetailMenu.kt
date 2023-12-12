@@ -3,13 +3,13 @@ package com.example.mykioskproject
 import com.example.mykioskproject.menu.FoodData
 
 open class DetailMenu {
-    val myList = ArrayList<FoodData>() //버거 메뉴를 저장할 리스트
+    val myList = ArrayList<FoodData>() //음식 메뉴를 저장할 리스트
 
-    open fun setList(){
+    open fun setList(){ //메뉴를 등록하는 메소드
 
     }
 
-    open fun displayInfo(){
+    open fun displayInfo(){ //등록된 메뉴를 출력하는 메소드
 
     }
 }
