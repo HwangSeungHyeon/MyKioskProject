@@ -1,11 +1,26 @@
 package com.example.mykioskproject.menu
 
 import com.example.mykioskproject.DetailMenu
+import java.lang.NumberFormatException
 
 class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
     var cash = (1 .. 5).random() * 5000 //소지 금액은 5000에서 25000사이 랜덤한 값
     var sum = 0
     var menuCmd = 0
+
+    // DetailMenu에 cmdInput 메소드를 추가하는 확장함수
+    fun DetailMenu.cmdInput(): Int{ //intMenuCommend 프로퍼티를 입력받음
+        var cmdInput: Int
+        while(true){
+            try{
+                cmdInput = readln().toInt() //null을 받을 수 없는 문자열을 가져와서
+                break
+            }catch (e: NumberFormatException){
+                println("숫자만 입력할 수 있어요. 다시 입력해주세요.")
+            }
+        }
+        return cmdInput
+    }
     override fun displayInfo() { // 메뉴 주문할 때 사용하는 메소드
         sum = 0 //음식 가격 총합 저장할 변수
         println("\n아래와 같이 주문 하시겠습니까?")

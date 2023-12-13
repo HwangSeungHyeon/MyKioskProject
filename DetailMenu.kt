@@ -13,17 +13,4 @@ open class DetailMenu {
     open fun displayInfo(){ //등록된 메뉴를 출력하는 메소드
 
     }
-
-    fun cmdInput(): Int{ //intMenuCommend 프로퍼티를 입력받음
-        var cmdInput: Int
-        while(true){
-            try{
-                cmdInput = readln().toInt() //null을 받을 수 없는 문자열을 가져와서
-                break
-            }catch (e: NumberFormatException){
-                println("숫자만 입력할 수 있어요. 다시 입력해주세요.")
-            }
-        }
-        return cmdInput
-    }
 }
