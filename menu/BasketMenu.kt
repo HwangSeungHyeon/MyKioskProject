@@ -16,8 +16,8 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
         println("\n[ Total ]")
         println("${sum}원 입니다.")
 
-        println("\n[ 현재 소지한 금액 ]")
-        println("${cash}원 입니다.")
+//        println("\n[ 현재 소지한 금액 ]")
+//        println("${cash}원 입니다.")
 
         println("\n1.주문\t2.메뉴로 돌아가기")
     }

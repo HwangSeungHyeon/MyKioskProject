@@ -16,10 +16,10 @@ class MainMenu{
             /*=============================문구 출력 끝=================================*/
 
             /*===========================메인메뉴 출력===============================*/
-            println("\n[메뉴]\n1. 버거\n2. 치킨\n3. 맘스 세트\n4. 사이드\n5. 음료\n6. 소지금\n0. 종료")
+            println("\n[메뉴]\n1. 버거\n2. 치킨\n3. 맘스 세트\n4. 사이드\n5. 음료\n0. 종료")
 
             //장바구니에 뭔가가 들어있다면 주문 메뉴 띄우기
-            if(basket.myList.size != 0) println("\n[주문 메뉴]\n7. 주문\n8. 취소")
+            if(basket.myList.size != 0) println("\n[주문 메뉴]\n6. 주문\n7. 취소")
             /*===========================메인메뉴 출력===============================*/
 
             menuCmd = cmdInput() //메뉴 선택하도록 입력 받음
@@ -70,12 +70,7 @@ class MainMenu{
                     addBasket(drinksMenu) //DrinksMenu 클래스 객체를 DetailMenu 클래스로 업캐스팅
                 }
 
-                6 ->{
-                    println("\n[ 현재 소지한 금액 ]")
-                    println("${basket.cash}원 입니다.")
-                }
-
-                7->{
+                6->{
                     if(basket.myList.size > 0){
                         basket.displayInfo()
 
@@ -109,7 +104,7 @@ class MainMenu{
 
                 }
 
-                8 ->{
+                7 ->{
                     if(basket.myList.size > 0){
                         basket.cancelInfo()
 
