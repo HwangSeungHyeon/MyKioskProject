@@ -1,14 +1,17 @@
 package com.example.mykioskproject.menu
 
-import com.example.mykioskproject.DetailMenu
+import com.example.mykioskproject.OrderControl
+import com.example.mykioskproject.TimeManager
+import kotlinx.coroutines.runBlocking
 import java.lang.NumberFormatException
 
 class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
+    val time = TimeManager() //시간 객체
     var cash = (1 .. 5).random() * 5000 //소지 금액은 5000에서 25000사이 랜덤한 값
     var sum = 0
     var menuCmd = 0
+    val orderControl = OrderControl() //코루틴 제어하는 객체
 
-    // DetailMenu에 cmdInput 메소드를 추가하는 확장함수
     fun DetailMenu.cmdInput(): Int{ //intMenuCommend 프로퍼티를 입력받음
         var cmdInput: Int
         while(true){
@@ -21,7 +24,8 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
         }
         return cmdInput
     }
-    override fun displayInfo() { // 메뉴 주문할 때 사용하는 메소드
+
+    fun ordering() { // 메뉴 주문할 때 사용하는 메소드
         sum = 0 //음식 가격 총합 저장할 변수
         println("\n아래와 같이 주문 하시겠습니까?")
         println("\n[ Orders ]")
@@ -32,27 +36,50 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
         println("\n[ Total ]")
         println("${sum}원 입니다.")
 
-//        println("\n[ 현재 소지한 금액 ]")
-//        println("${cash}원 입니다.")
+        println("\n[ 현재 소지한 금액 ]")
+        println("${cash}원 입니다.")
 
-        println("\n1.주문\t2.메뉴로 돌아가기")
+        println("\n1. 주문\t2. 선택 삭제\t3. 장바구니 비우기\t4. 메뉴로 돌아가기")
 
         while(true){
             menuCmd = cmdInput() //입력받은 정수 커맨드
             when(menuCmd){
-                2-> break
-                1 ->{
+                1 ->{ //주문하기
                     if(sum <= cash){
-                        cash -= sum
-                        println("주문이 완료되었습니다.\n")
-                        myList.clear() // 장바구니 비우기
-                        break
+                        if (time.bankSystemMaintenance()) { // 오후 11시 50분부터 다음날 오전 00시 5분까지 동작하지 않도록 설정
+                            orderControl.startCoroutinScope() //코루틴 실행
+                            runBlocking{ //3초 지날 때까지 막아둠
+                                orderControl.job2?.join()
+                            }
+                            orderControl.job2?.cancel() //코루틴 할당 취소
+                            orderControl.count++
+                            cash -= sum
+                            println("결제를 완료했습니다. (${time.getTime()})")
+                            myList.clear() // 장바구니 비우기
+                            break
+
+                        } else {
+                            time.getTimeMessage()
+                            println("은행 점검 시간에는 결제할 수 없습니다.")
+                            println("\n[ 점검시간 ]")
+                            println("오후 11시 50분 ~ 다음날 오전 00시 05분")
+                            continue
+                        }
                     }
                     else{
                         println("현재 잔액은 ${cash}원으로 ${sum-cash}원이 부족해서 주문할 수 없습니다.")
-                        break
+                        continue
                     }
                 }
+                2-> { //장바구니에서 삭제하기
+                    orderCancel()
+                    break
+                }
+                3->{
+                    allDelete()
+                    break
+                }
+                4-> break //메인메뉴로 돌아가기
                 else->{
                     println("잘못된 번호를 입력했어요. 다시 입력해주세요.") //잘못된 입력이라고 출력
                     continue
@@ -61,7 +88,7 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
         }
     }
 
-    fun orderCancel() { // 메뉴 취소할 때 사용하는 메소드
+    private fun orderCancel() { // 메뉴 취소할 때 사용하는 메소드
         println("\n취소할 메뉴를 선택해주세요.")
 
         println("\n[ Orders ]")
@@ -88,11 +115,35 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
         }
     }
 
-    fun addBasket(myMenu:DetailMenu){ //basket에 추가하는 메소드
-        var escapeFlag = true //메뉴에서 나올 건지 결정하는 플래그
+    private fun allDelete(){
+        println("\n장바구니를 초기화하시겠습니까?")
+        println("1. 초기화\t2.메인메뉴로 돌아가기")
 
         while(true){
+            menuCmd = cmdInput() //입력받은 정수 커맨드
+            when(menuCmd){
+                2 -> break
+                in 1..myList.size ->{
+                    println("장바구니가 초기화되었습니다.")
+                    myList.clear()
+                    break
+                }
+                else->{
+                    println("잘못된 번호를 입력했어요. 다시 입력해주세요.") //잘못된 입력이라고 출력
+                    continue
+                }
+            }
+        }
+    }
+
+    fun addBasket(myMenu: DetailMenu){ //basket에 추가하는 메소드
+        var escapeFlag: Boolean //메뉴에서 나올 건지 결정하는 플래그
+
+        while(true){
+            myMenu.displayInfo() //메뉴 정보 출력
             val bMenuCmd = cmdInput() //장바구니 넣을지 말지 결정하는 메뉴 커맨드
+            escapeFlag = true
+
             when(bMenuCmd){
                 0 -> break // 사용자가 0 입력하면 메인메뉴로 돌아감
 
@@ -110,7 +161,6 @@ class BasketMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
                             1->{
                                 myList.add(foodList[bMenuCmd-1]) //장바구니 객체의 리스트 마지막에 추가
                                 println("\n${foodList[bMenuCmd-1].name}(이)가 장바구니에 추가되었습니다.")
-
                                 break
                             }
                             2 ->{

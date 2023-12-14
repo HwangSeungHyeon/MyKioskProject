@@ -1,7 +1,5 @@
 package com.example.mykioskproject.menu
 
-import com.example.mykioskproject.DetailMenu
-
 class ChickenMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
     override fun setList() {  //치킨 메뉴를 등록하는 메소드
         myList.add(FoodData("후라이드치킨", 16900, "싸이버거 스타일 케이준 양념레시피로 더 바삭하고 스파이시한 핫크리스피 치킨"))

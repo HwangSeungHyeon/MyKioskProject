@@ -1,7 +1,5 @@
 package com.example.mykioskproject.menu
 
-import com.example.mykioskproject.DetailMenu
-
 class SetMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
     override fun setList(){  //세트 메뉴를 등록하는 메소드
         myList.add(FoodData("싸이버거 세트", 6900, "매콤한 통다리살 패티가 통째로~ 양파와 양상추가 조화를 이루는 맘스터치 시그니처 버거"))

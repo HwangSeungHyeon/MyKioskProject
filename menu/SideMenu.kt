@@ -1,7 +1,5 @@
 package com.example.mykioskproject.menu
 
-import com.example.mykioskproject.DetailMenu
-
 class SideMenu : DetailMenu(){ //DetailMenu 클래스를 상속받았음
     override fun setList() { //사이드 메뉴를 등록하는 메소드
         myList.add(FoodData("콘샐러드", 1800, "달콤한 스위트콘에 신선한 야채가 어우러진 콘샐러드 치킨,버거와 곁들여 먹기 좋습니다."))

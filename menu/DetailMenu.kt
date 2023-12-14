@@ -1,4 +1,4 @@
-package com.example.mykioskproject
+package com.example.mykioskproject.menu
 
 import com.example.mykioskproject.menu.FoodData
 import java.lang.NumberFormatException
