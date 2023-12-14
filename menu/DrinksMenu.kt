@@ -1,7 +1,5 @@
 package com.example.mykioskproject.menu
 
-import com.example.mykioskproject.DetailMenu
-
 class DrinksMenu: DetailMenu(){ //DetailMenu 클래스를 상속받았음
     override fun setList() {  //음료수 메뉴를 등록하는 메소드
         myList.add(FoodData("콜라", 1600, "음료는 160z컵음료 혹은 355ml 캔음료로 제공됩니다."))

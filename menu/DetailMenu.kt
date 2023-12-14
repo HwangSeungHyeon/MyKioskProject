@@ -1,6 +1,7 @@
-package com.example.mykioskproject
+package com.example.mykioskproject.menu
 
 import com.example.mykioskproject.menu.FoodData
+import java.lang.NumberFormatException
 
 open class DetailMenu {
     val myList = ArrayList<FoodData>() //음식 메뉴를 저장할 리스트
